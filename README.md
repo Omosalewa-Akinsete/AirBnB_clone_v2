@@ -1,6 +1,6 @@
 0x02. AirBnB clone - MySQL
 
-0. Fork me if you can!
+Task 0. Fork me if you can!
 In the industry, you will work on an existing codebase 90% of the time. Your first thoughts upon looking at it might include:
 
 “Who did this code?”
@@ -18,7 +18,7 @@ update the repository name to AirBnB_clone_v2
 update the README.md with your information but don’t delete the initial authors
 If you are the owner of this repository, please create a new repository named AirBnB_clone_v2 with the same content of AirBnB_clone
 
-1. Bug free!
+Task 1 - Bug free!
 Do you remember the unittest module?
 
 This codebase contains many test cases. Some are missing, but the ones included cover the basic functionality of the program.
@@ -39,7 +39,7 @@ execute the console command
 get (again) the number of current records in the table states (same method, with MySQLdb)
 if the difference is +1 => test passed
 
-2. Console improvements
+Task 2 - Console improvements
 Update the def do_create(self, arg): function of your command interpreter (console.py) to allow for object creation with given parameters:
 
 Command syntax: create <Class name> <param 1> <param 2> <param 3>...
