@@ -73,7 +73,11 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
+<<<<<<< HEAD
                     if pline[0] == '{' and pline[-1] == '}'\
+=======
+                    if pline[0] is '{' and pline[-1] is '}'\
+>>>>>>> 54d2a579ef9e5683ab9d4106ad78b26cf16da835
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -118,6 +122,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
+<<<<<<< HEAD
         try:
             args = shlex.split(args)
             new_instance = eval(args[0])()
@@ -139,6 +144,27 @@ class HBNBCommand(cmd.Cmd):
         except:
             print("** class doesn't exist **")
             return
+=======
+        args_array = args.split()
+        class_name = args_array[0]
+        if class_name not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+        new_instance = HBNBCommand.classes[class_name]()
+        for param_index in range(1, len(args_array)):
+            param_array = args_array[param_index].split("=")
+            if len(param_array) == 2:
+                key = param_array[0]
+                if key not in HBNBCommand.valid_keys[class_name]:
+                    continue
+                value = self.parse_value(param_array[1])
+                if value is not None:
+                    setattr(new_instance, key, value)
+            else:
+                pass
+            new_instance.save()
+            print(new_instance.id)
+>>>>>>> 54d2a579ef9e5683ab9d4106ad78b26cf16da835
 
     def help_create(self):
         """ Help information for the create method """
@@ -333,6 +359,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

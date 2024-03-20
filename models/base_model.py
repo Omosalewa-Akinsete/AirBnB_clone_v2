@@ -12,7 +12,7 @@ class BaseModel:
     id = Column(String(60), primary_key=True,
                 nullable=False, unique=True)
     created_at = Column(DateTime, nullable=False,
-                        default=datetime.dattime.utcnow)
+                        default=datetime.datetime.utcnow)
     updated_at = Column(DateTime, nullable=False,
                         default=datetime.datetime.utcnow,
                         onupdated=datetime.datetime.utcnow)
@@ -45,8 +45,8 @@ class BaseModel:
     def to_dict(self):
         """Convert instance into dict format"""
         dictionary = {}
-        dictionary.updated(self.__dict__)
-        dictionary.({'__class__':
+        dictionary.update(self.__dict__)
+        dictionary.update({'__class__':
                     (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
