@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -73,11 +74,8 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-<<<<<<< HEAD
+
                     if pline[0] == '{' and pline[-1] == '}'\
-=======
-                    if pline[0] is '{' and pline[-1] is '}'\
->>>>>>> 54d2a579ef9e5683ab9d4106ad78b26cf16da835
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -122,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
-<<<<<<< HEAD
+
         try:
             args = shlex.split(args)
             new_instance = eval(args[0])()
@@ -144,7 +142,7 @@ class HBNBCommand(cmd.Cmd):
         except:
             print("** class doesn't exist **")
             return
-=======
+
         args_array = args.split()
         class_name = args_array[0]
         if class_name not in HBNBCommand.classes:
@@ -164,7 +162,6 @@ class HBNBCommand(cmd.Cmd):
                 pass
             new_instance.save()
             print(new_instance.id)
->>>>>>> 54d2a579ef9e5683ab9d4106ad78b26cf16da835
 
     def help_create(self):
         """ Help information for the create method """
