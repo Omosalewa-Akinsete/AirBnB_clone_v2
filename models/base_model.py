@@ -12,7 +12,7 @@ class BaseModel:
     id = Column(String(60), primary_key=True,
                 nullable=False, unique=True)
     created_at = Column(DateTime, nullable=False,
-                        default=datetime.dattime.utcnow)
+                        default=datetime.datetime.utcnow)
     updated_at = Column(DateTime, nullable=False,
                         default=datetime.datetime.utcnow,
                         onupdated=datetime.datetime.utcnow)
