@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -74,12 +75,26 @@ class HBNBCommand(cmd.Cmd):
                 if pline:
                     # check for *args or **kwargs
 
+
                     if pline[0] == '{' and pline[-1] == '}':
                         if pline[0] is '{' and pline[-1] is '}' \
                                 and type(eval(pline)) is dict:
                             _args = pline
                         else:
                             _args = pline.replace(',', '')
+
+                    if pline[0] == '{' and pline[-1] == '}'\
+
+
+
+                    if pline[0] is '{' and pline[-1] is '}'\
+
+
+                            and type(eval(pline)) is dict:
+                        _args = pline
+                    else:
+                        _args = pline.replace(',', '')
+
                         # _args = _args.replace('\"', '')
             line = ' '.join([_cmd, _cls, _id, _args])
 
