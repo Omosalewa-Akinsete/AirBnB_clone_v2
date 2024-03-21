@@ -76,6 +76,12 @@ class HBNBCommand(cmd.Cmd):
                     # check for *args or **kwargs
 
                     if pline[0] == '{' and pline[-1] == '}'\
+<<<<<<< HEAD
+=======
+
+                    if pline[0] is '{' and pline[-1] is '}'\
+
+>>>>>>> e14f601dec6ceab125da392827e7b02f57c27c6a
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -120,7 +126,10 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
+<<<<<<< HEAD
 
+=======
+>>>>>>> e14f601dec6ceab125da392827e7b02f57c27c6a
         try:
             args = shlex.split(args)
             new_instance = eval(args[0])()
@@ -142,7 +151,10 @@ class HBNBCommand(cmd.Cmd):
         except:
             print("** class doesn't exist **")
             return
+<<<<<<< HEAD
 
+=======
+>>>>>>> e14f601dec6ceab125da392827e7b02f57c27c6a
         args_array = args.split()
         class_name = args_array[0]
         if class_name not in HBNBCommand.classes:
