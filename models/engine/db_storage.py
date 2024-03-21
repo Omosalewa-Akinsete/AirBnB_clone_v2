@@ -21,16 +21,10 @@ class DBStorage:
 
     def __init__(self):
         """Initialization of DBStorage class"""
-        self.__engine = create_engine(
-            f"mysql+mysqldb://{hb_user}:{hb_pwd}@{hb_host}/{hb_db}",
-            pool_pre_ping=True,)
-        hb_user = getenv("HBNB_MYSQL_USER")
-        hb_pwd = getenv("HBNB_MYSQL_PWD")
-        hb_host = getenv("HBNB_MYSQL_HOST")
-        hb_db = getenv("HBNB_MYSQL_DB")
-        hb_env = getenv("HBNB_ENV")
-        if hb_env == "test":
+        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(getenv("HBNB_MYSQL_USER"),getenv("HBNB_MYSQL_PWD"),getenv("HBNB_MYSQL_HOST"),getenv("HBNB_MYSQL_DB")), pool_pre_ping=True)
+        if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
+
 
     def reload(self):
         """Define reload method"""
