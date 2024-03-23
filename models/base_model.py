@@ -10,6 +10,7 @@ from sqlalchemy import String
 
 Base = declarative_base()
 
+
 class BaseModel:
     """A base class for all hbnb models"""
     id = Column(String(60), primary_key=True, nullable=False)
@@ -45,15 +46,12 @@ class BaseModel:
 
     def to_dict(self):
         """Convert instance into dict format"""
-        dictionary = {}
-        dictionary.update(self.__dict__)
-        dictionary.update({'__class__':
-                    (str(type(self)).split('.')[-1]).split('\'')[0]})
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
-        if '_sa_instance_state' in dictionary:
-            del dictionary['_sa_instance_state']
-        return dictionary
+        dict_in = self.__dict__.copy()
+        dict_in["__class__"] = str(type(self).__name__)
+        dict_in["created_at"] = self.created_at.isoformat()
+        dict_in["updated_at"] = self.updated_at.isoformat()
+        dict_in.pop("_sa_instance_state", None)
+        return dict_in
 
     def delete(self):
         """Delete the current instance"""
