@@ -71,33 +71,13 @@ class HBNBCommand(cmd.Cmd):
                 # empty quotes register as empty _id when replaced
 
                 # if arguments exist beyond _id
-                pline = pline[2].strip()  # pline is now str
-                if pline:
-                    # check for *args or **kwargs
-<<<<<<< HEAD
-
-
-                    if pline[0] == '{' and pline[-1] == '}':
-                        if pline[0] == '{' and pline[-1] == '}' \
-                                and type(eval(pline)) is dict:
-                            _args = pline
-                        else:
-                            _args = pline.replace(',', '')
-
-=======
->>>>>>> 7bbb25b78a7590d6fb3e21c755873ea36bbd24ea
-                    if pline[0] == '{' and pline[-1] == '}'\
-                            and type(eval(pline)) is dict:
-                            _args = pline
-                            else:
-                                _args = pline.replace(',', '')
-                            # _args = _args.replace('\"', '')
+                if pline[0] == '{' and pline[-1] == '}'\
+                        and type(eval(pline)) is dict:
+                    _args = pline
+                else:
+                    _args = pline.replace(',', '')
+                    # _args = _args.replace('\"', '')
             line = ' '.join([_cmd, _cls, _id, _args])
-
-        except Exception as mess:
-            pass
-        finally:
-            return line
 
     def postcmd(self, stop, line):
         """Prints if isatty is false"""
@@ -142,14 +122,14 @@ class HBNBCommand(cmd.Cmd):
                         value = value.replace("_", " ")
                         try:
                             value = eval(value)
-                        except:
+                        except Exception as e:
                             pass
                         setattr(new_instance, key, value)
                 except (ValueError, IndexError):
                     pass
             new_instance.save()
             print(new_instance.id)
-        except:
+        except Exception as e:
             print("** class doesn't exist **")
             return
         args_array = args.split()
