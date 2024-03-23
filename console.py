@@ -77,19 +77,13 @@ class HBNBCommand(cmd.Cmd):
 
 
                     if pline[0] == '{' and pline[-1] == '}':
-                        if pline[0] is '{' and pline[-1] is '}' \
+                        if pline[0] == '{' and pline[-1] == '}' \
                                 and type(eval(pline)) is dict:
                             _args = pline
                         else:
                             _args = pline.replace(',', '')
 
                     if pline[0] == '{' and pline[-1] == '}'\
-
-
-
-                    if pline[0] is '{' and pline[-1] is '}'\
-
-
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
