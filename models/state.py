@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+<<<<<<< HEAD
 """Defines the Place class."""
 import models
 from os import getenv
@@ -82,3 +83,12 @@ class Place(BaseModel, Base):
         def amenities(self, value):
             if type(value) == Amenity:
                 self.amenity_ids.append(value.id)
+=======
+""" State Module for HBNB project """
+from models.base_model import BaseModel
+
+
+class State(BaseModel):
+    """ State class """
+    name = ""
+>>>>>>> 9451faf353cb54245875401b7b00ac303fc3ea71

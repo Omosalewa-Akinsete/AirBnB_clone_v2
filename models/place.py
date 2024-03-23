@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+<<<<<<< HEAD
 """Defines the Place class."""
 import models
 from os import getenv
@@ -57,6 +58,24 @@ class Place(BaseModel, Base):
     reviews = relationship("Review", backref="place", cascade="delete")
     amenities = relationship("Amenity", secondary="place_amenity",
                              viewonly=False)
+=======
+""" Place Module for HBNB project """
+from models.base_model import BaseModel
+
+
+class Place(BaseModel):
+    """ A place to stay """
+    city_id = ""
+    user_id = ""
+    name = ""
+    description = ""
+    number_rooms = 0
+    number_bathrooms = 0
+    max_guest = 0
+    price_by_night = 0
+    latitude = 0.0
+    longitude = 0.0
+>>>>>>> 9451faf353cb54245875401b7b00ac303fc3ea71
     amenity_ids = []
 
     if getenv("HBNB_TYPE_STORAGE", None) != "db":

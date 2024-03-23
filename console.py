@@ -129,14 +129,14 @@ class HBNBCommand(cmd.Cmd):
                         value = value.replace("_", " ")
                         try:
                             value = eval(value)
-                        except:
+                        except Exception as e:
                             pass
                         setattr(new_instance, key, value)
                 except (ValueError, IndexError):
                     pass
             new_instance.save()
             print(new_instance.id)
-        except:
+        except Exception as e:
             print("** class doesn't exist **")
             return
 
