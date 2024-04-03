@@ -9,7 +9,7 @@ from datetime import date
 
 
 def do_pack():
-    """Generates an archive from the content of web_ststic folder"""
+    """Generates an archive from the content of web_static folder"""
     filename = strftime("%Y%m%d%H%M%S")
     try:
         local("mkdir -p versions")
