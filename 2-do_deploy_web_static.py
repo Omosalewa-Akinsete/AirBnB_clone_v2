@@ -1,11 +1,17 @@
 #!/usr/bin/python3
-"""Distributes an archive to your web servers, using the function do_deploy"""
+"""
+Distributes an archive to your web servers,
+using the function do_deploy
+"""
+
 import os
 from fabric.api import *
 from datetime import datetime
 
-env.hosts = ['100.25.13.203', '34.201.61.187']
-env.user = 'ubuntu'
+
+# Set the host IP addresses for web-01 && web-02
+env.hosts = ['54.83.130.140', '18.235.255.48']
+env.user = "ubuntu"
 
 
 def do_pack():
@@ -27,7 +33,6 @@ def do_deploy(archive_path):
         a_path = "/tmp/{}".format(archive)
         folder = archive.split('.')[0]
         f_path = "/data/web_static/releases/{}/".format(folder)
-
         put(archive_path, a_path)
         run("mkdir -p {}".format(f_path))
         run("tar -xzf {} -C {}".format(a_path, f_path))
