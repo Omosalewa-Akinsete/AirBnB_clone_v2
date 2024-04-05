@@ -4,6 +4,7 @@ Distributes an archive to your web servers,
 using the function do_deploy
 """
 import os
+from time import strftime
 from fabric.api import task
 from fabric.api import local
 from fabric.api import env
@@ -17,14 +18,15 @@ env.user = "ubuntu"
 
 
 def do_pack():
-    """Create a tar gzipped archive of the directory web_static."""
-    formatted_dt = datetime.now().strftime('%Y%m%d%H%M%S')
-    mkdir = "mkdir -p versions"
-    path = "versions/web_static_{}.tgz".format(formatted_dt)
-    print("Packing web_static to {}".format(path))
-    if local("{} && tar -cvzf {} web_static".format(mkdir, path)).succeeded:
-        return path
-    return None
+    """Generates an archive from the content of web_static folder"""
+    filename = strftime("%Y%m%d%H%M%S")
+    try:
+        local("mkdir -p versions")
+        local("tar -czvf versions/web_static_{}.tgz web_static/"
+              .format(filename))
+        return "versions/web_static_{}.tgz".format(filename)
+    except Exception as e:
+        return None
 
 
 def do_deploy(archive_path):
