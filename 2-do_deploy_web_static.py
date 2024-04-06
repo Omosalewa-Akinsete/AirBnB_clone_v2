@@ -3,31 +3,14 @@
 Distributes an archive to your web servers,
 using the function do_deploy
 """
-from os import path
-from time import strftime
+from os.path import exists
 from fabric.api import task
 from fabric.api import local
 from fabric.api import env
 from fabric.api import put
 from fabric.api import run
-from datetime import datetime
-
 
 env.hosts = ['100.25.13.203', '34.201.61.187']
-env.user = "ubuntu"
-env.key_filename = '~/.ssh/school'
-
-
-def do_pack():
-    """Generates an archive from the content of web_static folder"""
-    filename = strftime("%Y%m%d%H%M%S")
-    try:
-        local("mkdir -p versions")
-        local("tar -czvf versions/web_static_{}.tgz web_static/"
-              .format(filename))
-        return "versions/web_static_{}.tgz".format(filename)
-    except Exception as e:
-        return None
 
 
 def do_deploy(archive_path):
@@ -57,3 +40,4 @@ def do_deploy(archive_path):
         print(e)
         return False
     return True
+
