@@ -3,20 +3,20 @@
 Distributes an archive to your web servers,
 using the function do_deploy
 """
-from os.path import exists
+from os import path
 from fabric.api import task
 from fabric.api import local
 from fabric.api import env
 from fabric.api import put
 from fabric.api import run
-
 env.hosts = ['100.25.13.203', '34.201.61.187']
+env.user = "ubuntu"
 
 
 def do_deploy(archive_path):
     """Distributes an archive to your web servers"""
     try:
-        if not os.path.exists(archive_path):
+        if not path.exists(archive_path):
             return False
         put(archive_path, '/tmp/')
         timestamp = archive_path[-18:-4]
@@ -40,4 +40,3 @@ def do_deploy(archive_path):
         print(e)
         return False
     return True
-
