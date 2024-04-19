@@ -4,15 +4,15 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
-def hello():
-    """A route that displays Hello HBNB"""
+@app.route("/", strict_slashes=False)
+def hello_hbnb():
+    """A route that displays 'Hello HBNB!'"""
     return "Hello HBNB!"
 
 
-@app.route('/hbnb', strict_slashes=False)
+@app.route("/hbnb", strict_slashes=False)
 def hbnb():
-    """A route that displays HBNB"""
+    """A route that displays 'HBNB'"""
     return "HBNB"
 
 
