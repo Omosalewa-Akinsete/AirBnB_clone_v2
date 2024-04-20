@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Module that creates a new engine named db_storage.py"""
+"""Module that creates a new engine named db_storage.py"""
 from os import getenv
 from models.base_model import Base
 from models.base_model import BaseModel
