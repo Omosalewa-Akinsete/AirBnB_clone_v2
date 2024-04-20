@@ -1,57 +1,66 @@
 #!/usr/bin/python3
 """Module `base_model.py` that creates output in a dictionary"""
-import uuid
-from sqlalchemy import Column, String, DateTime
-from sqlalchemy.orm import declarative_base
+import models
+import uuid import uuid4
 from datetime import datetime
-
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column
+from sqlalchemy import DateTime
+from sqlalchemy import String
 Base = declarative_base()
 
 
 class BaseModel:
-    """Class BaseModel for overall hbnb models"""
-    id = Column(String(60), nullable=False, primary_key=True)
+    """Defines the BaseModel class.
+    Attributes:
+        id (sqlalchemy String): The BaseModel id.
+        created_at (sqlalchemy DateTime): The datetime at creation.
+        updated_at (sqlalchemy DateTime): The datetime of last update.
+    """
+
+    id = Column(String(60), primary_key=True, nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
-        """Special Instance of class BaseModel"""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_ar = datetime.now()
+        """Initialize a new BaseModel.
+        Args:
+            *args (any): Unused.
+            **kwargs (dict): Key/value pairs of attributes.
+        """
+        self.id = str(uuid4())
+        self.created_at = self.updated_at = datetime.utcnow()
         if kwargs:
-            time_format = "%Y-%m-%dT%H:%M:%S.%f"
             for key, value in kwargs.items():
-                if key == "__class__":
-                    continue
-                if key in ["created_at", "updated_at"]:
-                    value = datetime.strptime(value, time_format)
-                if hasattr(self, key):
+                if key == "created_at" or key == "updated_at":
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                if key != "__class__":
                     setattr(self, key, value)
-    def __str__(self):
-        """ Returns a string representation format of a string """
-        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
 
     def save(self):
-        """Always save the time when instance is changed"""
+        """Update updated_at with the current datetime."""
         self.updated_at = datetime.utcnow()
-        model.storage.new(self)
-        model.storage.save()
+        models.storage.new(self)
+        models.storage.save()
 
     def to_dict(self):
-        """_sa_instance_state manage instance of an ORM library"""
-        my_dict = {}
-        my_dict.update(self.__dict__)
-        my_dict.update({'__class__':
-            (str(type(self)).split('.')[-1]).split('\'')[0]})
-        my_dict['created_at'] = self.created_at.isoformat()
-        my_dict['updated_at'] = self.updated_at.isoformat()
-        if 'sa_instance_state' in my_dict.keys():
-            del my_dict['_sa_instance_state']
+        """Return a dictionary representation of the BaseModel instance.
+        Includes the key/value pair __class__ representing
+        the class name of the object.
+        """
+        my_dict = self.__dict__.copy()
+        my_dict["__class__"] = str(type(self).__name__)
+        my_dict["created_at"] = self.created_at.isoformat()
+        my_dict["updated_at"] = self.updated_at.isoformat()
+        my_dict.pop("_sa_instance_state", None)
         return my_dict
 
     def delete(self):
-        """Remove the current instance from the storage"""
-        from models import storage
-        storage.delete()
+        """Delete the current instance from storage."""
+        models.storage.delete(self)
+
+    def __str__(self):
+        """Return the print/str representation of the BaseModel instance."""
+        d = self.__dict__.copy()
+        d.pop("_sa_instance_state", None)
+        return "[{}] ({}) {}".format(type(self).__name__, self.id, d)
