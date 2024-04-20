@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module `base_model.py` that creates output in a dictionary"""
+"""Defines the Base class"""
 import models
 import uuid import uuid4
 from datetime import datetime
