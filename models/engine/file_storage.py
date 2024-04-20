@@ -11,34 +11,42 @@ from models.user import User
 
 
 class FileStorage:
-    """This class manages storage of hbnb models in JSON format"""
-    __file_path = 'file.json'
+    """Represent an abstracted storage engine.
+    Attributes:
+        __file_path (str): The name of the file to save objects to.
+        __objects (dict): A dictionary of instantiated objects.
+    """
+
+    __file_path = "file.json"
     __objects = {}
 
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
+        """Return a dictionary of instantiated objects in __objects.
+        If a cls is specified, returns a dictionary of objects of that type.
+        Otherwise, returns the __objects dictionary.
+        """
         if cls is not None:
             if type(cls) == str:
                 cls = eval(cls)
-            new_dict = {}
+            cls_dict = {}
             for k, v in self.__objects.items():
                 if type(v) == cls:
-                    new_dict[k] = v
-            return new_dict
+                    cls_dict[k] = v
+            return cls_dict
         return self.__objects
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""
+        """Set in __objects obj with key <obj_class_name>.id."""
         self.__objects["{}.{}".format(type(obj).__name__, obj.id)] = obj
 
     def save(self):
-        """Saves storage dictionary to file"""
+        """Serialize __objects to the JSON file __file_path."""
         odict = {o: self.__objects[o].to_dict() for o in self.__objects.keys()}
         with open(self.__file_path, "w", encoding="utf-8") as f:
             json.dump(odict, f)
 
     def reload(self):
-        """Loads storage dictionary from file"""
+        """Deserialize the JSON file __file_path to __objects, if it exists."""
         try:
             with open(self.__file_path, "r", encoding="utf-8") as f:
                 for o in json.load(f).values():
@@ -49,12 +57,12 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """Delete an object from the argument"""
+        """Delete a given object from __objects, if it exists."""
         try:
             del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
         except (AttributeError, KeyError):
             pass
 
     def close(self):
-        """Close reload method"""
+        """Call the reload method."""
         self.reload()
