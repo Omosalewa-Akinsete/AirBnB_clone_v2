@@ -1,1 +1,1 @@
-Number template
+Templates
